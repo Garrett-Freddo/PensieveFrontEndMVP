@@ -1,0 +1,12 @@
+.file-input {
+    position: absolute;
+    width: 400px;
+    height: 295px;
+    left: 33%;
+    top: 201px;
+    
+    background: #F9F9F9;
+    border: 3px dashed #E2E2E2;
+    border-radius: 4px;
+
+    }

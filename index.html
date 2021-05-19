@@ -4,131 +4,140 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.16/mammoth.browser.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
 </head>
 <body>
-  <input type="file" onchange="parseWordDocxFile(this)">
-  <script>
-  function parseWordDocxFile(inputElement) {
-    var files = inputElement.files || [];
-    if (!files.length) return;
-    var file = files[0];
+  <style>.top-buffer { margin-top:100px; }</style>
+  <style>
+    .file-input {
+    position: absolute;
+    width: 20%;
+    height: 28%;
+    left: 27.5%;
+    top: 19%;
+    
+    background: #F9F9F9;
+    border: 3px dashed #E2E2E2;
+    border-radius: 4px;
+    }
+    .file-uploads {
+    position: absolute;
+    width: 20%;
+    height: 28%;
+    left: 47.5%;
+    top: 19%;
+    
+    background: #F9F9F9;
+    border: 3px dashed #E2E2E2;
+    border-radius: 4px;
+    }
 
-    console.time();
-    var reader = new FileReader();
-    reader.onloadend = function(event) {
-      var arrayBuffer = reader.result;
-      // debugger
+    .upload-button {
+    position: absolute;
+    width: 7%;
+    height: 3.5%;
+    left: 54.5%;
+    top: 43%;
+    }
+    .side-nav-bg {
+      position: absolute;
+      left: 0%;
+      right: 81.26%;
+      top: 7.97%;
+      bottom: 0%;
 
-      mammoth.convertToHtml({arrayBuffer: arrayBuffer}).then(function (resultObject) {
-        output.innerHTML = resultObject.value
-      })
-      console.timeEnd();
-    };
-    reader.readAsArrayBuffer(file);
-  }
-</script>
+      background: #181818;
+      border: 1px solid #181818;
+      box-sizing: border-box;
+      border-radius: 0px 43px 0px 0px;
+    }
+
+    .nav-bar-elements {
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 19px;
+      /* identical to box height */
+
+      letter-spacing: 0.01em;
+
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+      .text-editor{
+        position: absolute;
+        width: 20%;
+        height: 28%;
+        left: 47.5%;
+        top: 50%;
+      }
+  </style>
 
 
 
-  <!--------------------------------->
-  <ul data-bind="foreach: selectedText">
-    <li data-bind="text: $data"></li>
-</ul>
-  <div id = "editor">
+<div class=".container-fluid">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col">
+      <div class="input-group rounded">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+          aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+  
+  <div class="row top-buffer">
+    <div class="col">
+    </div>
+    <div class="col-">
+      <div class="row justify-content-center">
+        <input class="file-input" id="formFileLg" type="file" onchange="parseWordDocxFile(this)" />
+        <div class="file-uploads"></div>
+        <div id="output" style="display: none;"></div>
+        <button class = "upload-button" onclick="Initialize()">Load Documents</button>
+      </div>
+    </div>
+    <div class="col">
+    </div>
   </div>
 
-<textarea id="output"></textarea>
-<script src="script.js"></script>
+  <div class="row top-buffer">
+    <div class="col">
+    </div>
+    <div class="col">
+      <div id = "editor">
+      </div>
+    </div>
+    <div class="col">
+      <p>Notes</p>
+      <ul data-bind="foreach: selectedText">
+        <li data-bind="text: $data"></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!--Navbar-->
+<ul class = "side-nav-bg">
+  <li class = ><a class = "nav-bar-elements" href="default.asp">Home</a></li>
+  <li><a class = "nav-bar-elements" href="news.asp">News</a></li>
+  <li><a class = "nav-bar-elements" href="contact.asp">Contact</a></li>
+  <li><a class = "nav-bar-elements" href="about.asp">About</a></li>
+</ul>
+
+
 </body>
 </html>
 
-<!-- Include the Quill library -->
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
-
-<!-- Initialize Quill editor -->
-<button onclick="Initialize()"></button>
-<script>
-
-var self = this; 
-    //Create an observable array to display the text that you highlight with your cursor.
-self.selectedText = ko.observableArray([]);
-
-  function Initialize() {
-  var quill = new Quill('#editor', {
-    modules: {            // Include syntax module
-    toolbar: [['code-block']]  // Include button in toolbar
-  },
-    theme: 'snow'
-  });
-quill.setContents();
-const value = document.getElementById('output').textContent
-const delta = quill.clipboard.convert(value)
-quill.setContents(delta, 'silent')
-
-//this is the "AI" automatic highlighting
-let length = quill.getLength()
-var text = quill.getText(0, length);
-for(let i = 0; i < length; ++i) {
-  if(keyWordPatternMatcher(i, text, length) ) {
-    findNextPeriodAndHighlight(i, text);
-  }
-}
-
-function keyWordPatternMatcher(startIndex, text, length) {
-  if(text.length - startIndex > 10) { //ensures there will be no out of bounds/ useless highlights
-    if(text[startIndex] === 'T') {
-      console.log(text[startIndex])
-      text = text.toLowerCase();
-      if(text[startIndex + 1] === 'h') {
-        if(text[startIndex + 2] === 'i') {
-          if(text[startIndex + 3] === 's') {
-            return true;
-          }
-        }
-      }
-    }
-  }
-  return false;
-}
-
-
-function findNextPeriodAndHighlight(startIndex, text) {
-  for(let i = startIndex; i < text.length; ++i) {
-    if(text[i] === '.') {
-      quill.formatText(startIndex, i - startIndex, {                   
-          'color': 'rgb(204,204,0)'
-          }, true);
-          highlightedText = text.slice(startIndex, i);
-          self.selectedText.push(highlightedText);
-          return 0;
-    }
-  }
-
-}
-
-function ViewModel(){
-
-    //This function will be called when you make a change in the text, in this case, highlighting a word. 
-    quill.on('selection-change', function(range, oldRange, source){
-        //This will get the text range that you highlighted.
-        var text = quill.getText(range.index, range.length);
-        if(self.selectedText().includes(text)){
-            quill.formatText(range.index, range.length, {                   
-            'color': 'rgb(0,0,0)'
-        }, true);
-            self.selectedText.remove(text);
-        } else if(text.length > 0) {
-            quill.formatText(range.index, range.length, {                   
-          'color': 'rgb(204,204,0)'
-          }, true);
-          self.selectedText.push(text);
-        }
-    })
-}
-ko.applyBindings(new ViewModel());
-
-
-}
-</script>
+<script src="script.js"></script>
